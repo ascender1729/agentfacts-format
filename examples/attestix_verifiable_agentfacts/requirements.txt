@@ -1,0 +1,2 @@
+attestix==0.4.1rc2
+jsonschema>=4
