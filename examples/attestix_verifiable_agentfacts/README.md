@@ -21,7 +21,7 @@ to make those fields **cryptographically verifiable**:
 ## Run
 
 ```bash
-pip install attestix==0.4.1rc2 jsonschema
+pip install attestix>=0.4.1 jsonschema
 python verifiable_agentfacts.py
 ```
 
