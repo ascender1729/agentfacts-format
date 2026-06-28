@@ -18,7 +18,7 @@ What it does:
      publisher cannot upgrade their own `certification.level` without detection.
 
 Run:
-    pip install attestix>=0.4.1 jsonschema
+    pip install "attestix>=0.4.1" jsonschema
     python verifiable_agentfacts.py
 """
 import copy

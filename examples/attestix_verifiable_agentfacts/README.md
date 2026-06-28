@@ -21,9 +21,12 @@ to make those fields **cryptographically verifiable**:
 ## Run
 
 ```bash
-pip install attestix>=0.4.1 jsonschema
+pip install "attestix>=0.4.1" jsonschema
 python verifiable_agentfacts.py
 ```
+
+The script generates `agent.agentfacts.json` locally as its output (gitignored, not
+a committed sample). Each run produces a fresh credential id and timestamps.
 
 Expected output:
 
@@ -33,11 +36,15 @@ Expected output:
   [PASS] credential is about this agent
   [PASS] certification.level matches signed claim
   [PASS] certification.issuer matches signer
+  [PASS] certification dates match the credential
   [PASS] evaluations.auditorID matches signer
   [PASS] evaluations.auditTrail points to the credential
   [PASS] forged certification.level is REJECTED offline
-wrote agent.agentfacts.json
+  [PASS] forged certification.expirationDate is REJECTED offline
+wrote agent.agentfacts.json  (issuer/auditor DID: did:key:z6Mk...)
 ```
+
+(The `did:key:...` issuer DID is freshly generated each run, so yours will differ.)
 
 ## How the fields map
 
@@ -48,5 +55,12 @@ wrote agent.agentfacts.json
 | `evaluations.auditTrail` | the credential id (pointer to the verifiable evidence) |
 | `x-attestix-credential` | the full signed credential, so verification is offline |
 
-`agent.agentfacts.json` is a sample output. Tamper with any `certification` value
-in it and re-run, and the offline check fails.
+`agent.agentfacts.json` is the script's generated output. Tamper with any
+`certification` value in it and re-run, and the offline check fails.
+
+## Limitations
+
+This demo is verify-only: it checks the credential signature and that the visible
+`certification` fields match exactly what was signed. It does not enforce credential
+expiry, trust-root / issuer trust, or live revocation - those are out of scope for
+this example.
